@@ -1,0 +1,242 @@
+@import "tailwindcss";
+
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── The Seasons — self-hosted ── */
+@font-face {
+  font-family: 'The Seasons';
+  src: url('/fonts/TheSeasons-Light.woff2') format('woff2'),
+       url('/fonts/TheSeasons-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'The Seasons';
+  src: url('/fonts/TheSeasons-Regular.woff2') format('woff2'),
+       url('/fonts/TheSeasons-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'The Seasons';
+  src: url('/fonts/TheSeasons-Italic.woff2') format('woff2'),
+       url('/fonts/TheSeasons-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'The Seasons';
+  src: url('/fonts/TheSeasons-Bold.woff2') format('woff2'),
+       url('/fonts/TheSeasons-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --gold: #c9a876;
+  --gold-light: #e3c89a;
+  --gold-dark: #a9824f;
+  --cream: #1f2519;
+  --cream-mid: #181e13;
+  --espresso: #f0e6da;
+  --footer-deep: #131810;
+}
+
+@theme inline {
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+  --color-cream: var(--cream);
+  --color-cream-mid: var(--cream-mid);
+  --color-espresso: var(--espresso);
+  --color-footer-deep: var(--footer-deep);
+}
+
+/* Make The Seasons available as a CSS variable used across all components */
+:root {
+  --font-seasons: 'The Seasons', Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--espresso);
+  font-family: var(--font-cormorant), serif;
+}
+
+
+.card-flip-y {
+  position: relative;
+}
+.card-flip-y::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--flip-bg);
+  background-size: cover;
+  background-position: var(--flip-bg-pos, center);
+  transform: scaleY(-1);
+  z-index: 0;
+  border-radius: inherit;
+}
+.card-flip-y > * {
+  position: relative;
+  z-index: 1;
+}
+
+.bg-flip-both {
+  position: relative;
+}
+.bg-flip-both::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--flip-bg);
+  background-size: cover;
+  background-position: center;
+  transform: scale(-1, -1);
+  z-index: 0;
+}
+.bg-flip-both > * {
+  position: relative;
+  z-index: 1;
+}
+
+.card-flip-both {
+  position: relative;
+}
+.card-flip-both::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--flip-bg);
+  background-size: cover;
+  background-position: center;
+  transform: scale(-1, -1);
+  z-index: 0;
+  border-radius: inherit;
+}
+.card-flip-both > * {
+  position: relative;
+  z-index: 1;
+}
+
+.bg-flop-x {
+  position: relative;
+}
+.bg-flop-x::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--flip-bg);
+  background-size: cover;
+  background-position: center;
+  transform: scaleX(-1);
+  z-index: 0;
+}
+.bg-flop-x > * {
+  position: relative;
+  z-index: 1;
+}
+
+.card-flop-x {
+  position: relative;
+}
+.card-flop-x::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--flip-bg);
+  background-size: cover;
+  background-position: center;
+  transform: scaleX(-1);
+  z-index: 0;
+  border-radius: inherit;
+}
+.card-flop-x > * {
+  position: relative;
+  z-index: 1;
+}
+
+.bg-flip-y {
+  position: relative;
+}
+.bg-flip-y::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--flip-bg);
+  background-size: cover;
+  background-position: center;
+  transform: scaleY(-1);
+  z-index: 0;
+}
+.bg-flip-y > * {
+  position: relative;
+  z-index: 1;
+}
+
+.gold-border-card {
+  border: none !important;
+  border-radius: 1.5rem;
+  background: transparent !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.15),
+    0 8px 24px rgba(0, 0, 0, 0.35),
+    0 20px 48px rgba(0, 0, 0, 0.2);
+}
+
+/* Heading text — warm gold-cream, glowing softly on the dark background */
+.heading-gold {
+  color: #e3c89a;
+  letter-spacing: 0.01em;
+}
+
+/* Display titles — light-weight serif caps with wide tracking, à la "SAVE THE DATE" */
+.heading-display {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+}
+
+/* Script-style couple names — same light weight as other headings, à la "Abhiram & Athira" */
+.heading-script {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+
+/* Force the lightest available weight even for italic glyphs in variable-font browsers */
+.heading-script,
+.heading-script * {
+  font-variation-settings: "wght" 300;
+}
+
+/* Alternating section backgrounds */
+.bg-paper-1 {
+  background-color: var(--cream);
+}
+.bg-paper-2 {
+  background-color: var(--cream-mid);
+}
+
+/* Leaflet map fixes */
+.leaflet-container {
+  background: var(--cream-mid);
+}

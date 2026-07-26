@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80" fill="none">
+  <!-- Central flower -->
+  <circle cx="60" cy="40" r="5" fill="#9c7c4f" fill-opacity="0.9"/>
+  <ellipse cx="60" cy="28" rx="4" ry="7" fill="#9c7c4f" fill-opacity="0.5" transform="rotate(0 60 40)"/>
+  <ellipse cx="60" cy="28" rx="4" ry="7" fill="#9c7c4f" fill-opacity="0.5" transform="rotate(45 60 40)"/>
+  <ellipse cx="60" cy="28" rx="4" ry="7" fill="#9c7c4f" fill-opacity="0.5" transform="rotate(90 60 40)"/>
+  <ellipse cx="60" cy="28" rx="4" ry="7" fill="#9c7c4f" fill-opacity="0.5" transform="rotate(135 60 40)"/>
+  <!-- Leaves -->
+  <path d="M35,40 Q45,25 55,38" stroke="#9c7c4f" stroke-width="1" fill="none" stroke-opacity="0.6"/>
+  <path d="M85,40 Q75,25 65,38" stroke="#9c7c4f" stroke-width="1" fill="none" stroke-opacity="0.6"/>
+  <!-- Small dots -->
+  <circle cx="25" cy="42" r="2" fill="#9c7c4f" fill-opacity="0.4"/>
+  <circle cx="95" cy="42" r="2" fill="#9c7c4f" fill-opacity="0.4"/>
+  <circle cx="15" cy="45" r="1.5" fill="#9c7c4f" fill-opacity="0.3"/>
+  <circle cx="105" cy="45" r="1.5" fill="#9c7c4f" fill-opacity="0.3"/>
+</svg>
