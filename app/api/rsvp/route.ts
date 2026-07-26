@@ -24,7 +24,9 @@ export async function POST(req: NextRequest) {
         guests: guestCount,
         attendance,
         targetTab: "Abhiram",
-        timestamp: new Date().toISOString(),
+        timestamp: new Date()
+          .toLocaleString("sv-SE", { timeZone: "Asia/Kolkata" })
+          .replace(" ", "T") + "+05:30",
       }),
     });
     const sheetData = await sheetRes.json().catch(() => ({}));
