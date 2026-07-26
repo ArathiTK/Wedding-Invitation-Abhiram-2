@@ -77,8 +77,8 @@ export default function RSVPForm() {
                 <label className={labelClass}>Are You Attending? *</label>
                 <div className="flex flex-col gap-2">
                   {[
-                    { value: "both", label: "Joyfully Accept" },
-                    { value: "decline", label: "Regretfully Decline" },
+                    { value: "wedding-only", label: "Joyfully Accept" },
+                    { value: "wedding-only-decline", label: "Regretfully Decline" },
                   ].map(({ value, label }) => (
                     <label key={value} className="flex items-center gap-3 text-[#fff9f3] text-sm cursor-pointer">
                       <input type="radio" value={value} className="appearance-none w-3 h-3 rounded-full border border-[#fff9f3] checked:bg-[#fff9f3] cursor-pointer transition-colors"
