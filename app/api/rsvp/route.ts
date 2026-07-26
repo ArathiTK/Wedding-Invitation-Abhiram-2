@@ -24,6 +24,7 @@ export async function POST(req: NextRequest) {
         guests: guestCount,
         attendance,
         targetTab: "Abhiram",
+        timestamp: new Date().toISOString(),
       }),
     });
     const sheetData = await sheetRes.json().catch(() => ({}));
