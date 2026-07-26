@@ -77,9 +77,7 @@ export default function RSVPForm() {
                 <label className={labelClass}>Are You Attending? *</label>
                 <div className="flex flex-col gap-2">
                   {[
-                    { value: "both", label: "Wedding & Reception" },
-                    { value: "ceremony", label: "Wedding Only" },
-                    { value: "reception", label: "Reception Only" },
+                    { value: "both", label: "Joyfully Accept" },
                     { value: "decline", label: "Regretfully Decline" },
                   ].map(({ value, label }) => (
                     <label key={value} className="flex items-center gap-3 text-[#fff9f3] text-sm cursor-pointer">
