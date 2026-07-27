@@ -5,21 +5,21 @@ import { WEDDING, makeGoogleCalendarUrl } from "@/lib/constants";
 export default function EventsSection() {
   const events = [
     {
-      name: "Wedding Ceremony",
-      date: WEDDING.ceremony.date,
-      time: WEDDING.ceremony.time,
-      venue: WEDDING.ceremony.venue,
-      address: WEDDING.ceremony.address,
+      name: "Reception",
+      date: WEDDING.reception.date,
+      time: WEDDING.reception.time,
+      venue: WEDDING.reception.venue,
+      address: WEDDING.reception.address,
       cardBg: "url('/assets/bg.png')",
       cardBgPosition: "center 20%",
-      googleMapsUrl: WEDDING.ceremony.googleMapsUrl,
+      googleMapsUrl: WEDDING.reception.googleMapsUrl,
       calUrl: makeGoogleCalendarUrl({
-        title: "Abhiram TK & Athira K — Wedding Ceremony",
-        isoDate: WEDDING.ceremony.isoDate,
-        startTime: WEDDING.ceremony.startTime,
-        endTime: WEDDING.ceremony.endTime,
-        venue: WEDDING.ceremony.venue,
-        address: WEDDING.ceremony.address,
+        title: "Abhiram TK & Athira K — Reception",
+        isoDate: WEDDING.reception.isoDate,
+        startTime: WEDDING.reception.startTime,
+        endTime: WEDDING.reception.endTime,
+        venue: WEDDING.reception.venue,
+        address: WEDDING.reception.address,
       }),
     },
   ];

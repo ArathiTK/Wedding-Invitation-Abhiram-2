@@ -1,7 +1,7 @@
 export interface RSVPData {
   name: string;
   guestCount: number;
-  attendance: "wedding-only" | "wedding-only-decline";
+  attendance: "reception-only" | "reception-only-decline";
 }
 
 export async function submitRSVP(data: RSVPData): Promise<{ success: boolean; message: string }> {

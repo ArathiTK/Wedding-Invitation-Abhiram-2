@@ -15,11 +15,11 @@ export default function RSVPForm() {
   const [error, setError] = useState("");
   const { register, handleSubmit, watch, formState: { errors } } = useForm<RSVPData>();
   const attendance = watch("attendance");
-  const isDeclining = attendance === "wedding-only-decline";
+  const isDeclining = attendance === "reception-only-decline";
 
   async function onSubmit(data: RSVPData) {
     setSubmitting(true); setError("");
-    if (data.attendance === "wedding-only-decline") data.guestCount = 0;
+    if (data.attendance === "reception-only-decline") data.guestCount = 0;
     try { await submitRSVP(data); setSubmitted(true); }
     catch (e) { setError(e instanceof Error ? e.message : "Something went wrong."); }
     finally { setSubmitting(false); }
@@ -89,8 +89,8 @@ export default function RSVPForm() {
                 <label className={labelClass}>Are You Attending? *</label>
                 <div className="flex flex-col gap-2">
                   {[
-                    { value: "wedding-only", label: "Joyfully Accept" },
-                    { value: "wedding-only-decline", label: "Regretfully Decline" },
+                    { value: "reception-only", label: "Joyfully Accept" },
+                    { value: "reception-only-decline", label: "Regretfully Decline" },
                   ].map(({ value, label }) => (
                     <label key={value} className="flex items-center gap-3 text-[#fff9f3] text-sm cursor-pointer">
                       <input type="radio" value={value} className="appearance-none w-3 h-3 rounded-full border border-[#fff9f3] checked:bg-[#fff9f3] cursor-pointer transition-colors"
