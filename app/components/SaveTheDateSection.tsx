@@ -82,6 +82,20 @@ export default function SaveTheDateSection() {
               transition={{ duration: 1.5, ease: "easeOut", delay: 0.6 }}
             >
               <CountdownTimer />
+              <motion.svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                animate={{ y: [0, 6, 0], opacity: [0.5, 1, 0.5] }}
+                transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+              >
+                <path d="M6 9l6 6 6-6" />
+              </motion.svg>
             </motion.div>
           </>
         )}
