@@ -27,7 +27,7 @@ export default function RSVPForm() {
 
   if (submitted) {
     return (
-      <section id="rsvp" className="h-[100svh] flex flex-col justify-center overflow-y-auto py-10 px-6">
+      <section id="rsvp" className="relative h-[100svh] flex flex-col justify-center overflow-y-auto py-10 px-6">
         <div className="max-w-3xl mx-auto w-full text-center">
           <div className="gold-border-card rounded-lg p-12"
             style={{ background: "rgba(255,255,255,0.08)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: "1px solid rgba(255,249,243,0.15)" }}>
@@ -41,13 +41,14 @@ export default function RSVPForm() {
             <h3 className="text-2xl heading-gold heading-display mb-3" style={{ color: "#fff9f3" }}>Thank You!</h3>
             <p className="text-[#fff9f3]/60 text-sm leading-relaxed">Your RSVP has been received. We look forward to celebrating with you.</p>
           </div>
+          <CraftedByFooter />
         </div>
       </section>
     );
   }
 
   return (
-    <section id="rsvp" className="h-[100svh] flex flex-col justify-center overflow-y-auto py-[clamp(1.5rem,5vh,2.5rem)] px-6">
+    <section id="rsvp" className="relative h-[100svh] flex flex-col justify-center overflow-y-auto py-[clamp(1.5rem,5vh,2.5rem)] px-6">
       <div className="max-w-3xl mx-auto w-full rounded-2xl px-6 py-8 md:px-8"
         style={{ background: "rgba(255,255,255,0.08)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: "1px solid rgba(255,249,243,0.15)" }}>
         <AnimateOnScroll>
@@ -112,6 +113,29 @@ export default function RSVPForm() {
           </div>
         </AnimateOnScroll>
       </div>
+      <CraftedByFooter />
     </section>
+  );
+}
+
+const MAILTO_HREF = "mailto:invitations.vivah@gmail.com" +
+  "?subject=" + encodeURIComponent("Inquiry for Custom Digital Invitation") +
+  "&body=" + encodeURIComponent(
+    "Hi,\n\nI came across your digital invitations and loved your work! I would like to get a custom invitation made for an upcoming celebration. Please let me know your availability, pricing, and how we can get started.\n\nBest regards"
+  );
+
+function CraftedByFooter() {
+  return (
+    <div
+      className="absolute bottom-0 left-0 right-0 flex items-end justify-center pb-4 pt-10 pointer-events-none"
+      style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 55%, transparent 100%)" }}
+    >
+      <p className="text-center text-[#fff9f3]/50 text-xs pointer-events-auto">
+        Crafted with love by{" "}
+        <a href={MAILTO_HREF} className="text-[#fff9f3]/70 underline hover:text-[#fff9f3] transition-colors">
+          invitations.vivah@gmail.com
+        </a>
+      </p>
+    </div>
   );
 }
