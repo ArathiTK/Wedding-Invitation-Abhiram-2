@@ -10,6 +10,19 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Videos/audio in /public never change filename-to-filename, so let browsers and the
+  // CDN cache them forever — repeat visits (and re-opening the same section) become
+  // instant instead of re-fetching multi-MB assets.
+  async headers() {
+    return [
+      {
+        source: "/assets/:path*.(mp4|mp3)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

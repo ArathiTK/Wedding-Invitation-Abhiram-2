@@ -30,7 +30,11 @@ export default function PageWrapper({ children }: { children: React.ReactNode })
     frameRef.current = requestAnimationFrame(tick);
   }
 
-  // Step 1 — unlock audio inside the tap gesture (iOS requires this)
+  // Step 1 — called synchronously from EnvelopeIntro's "Tap to Open" click handler.
+  // Background audio must start playing HERE, inside the tap gesture itself (volume 0,
+  // audible fade-in happens later in fadeIn()) — iOS/Safari block audio.play() unless it
+  // runs inside a real user-gesture call stack, so this cannot be moved into a useEffect
+  // or delayed until after the intro video finishes.
   function handleTap() {
     const audio = audioRef.current;
     if (!audio) return;

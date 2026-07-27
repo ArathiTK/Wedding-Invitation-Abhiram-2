@@ -1,13 +1,17 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { useIntro } from "@/app/context/IntroContext";
 
 export default function VideoBgSection() {
+  const { opened } = useIntro();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const v = videoRef.current;
-    if (!v) return;
+    // Same deferred-fetch strategy as SaveTheDateSection: don't compete with the
+    // intro video's download until the envelope has actually been opened.
+    if (!v || !opened) return;
 
     // load() only once — buffers the video without discarding progress on retry
     v.load();
@@ -52,19 +56,18 @@ export default function VideoBgSection() {
       document.removeEventListener("touchstart", onGesture);
       document.removeEventListener("click", onGesture);
     };
-  }, []);
+  }, [opened]);
 
   return (
     <section id="our-story" className="relative h-[100svh] overflow-hidden flex flex-col justify-start px-8 pt-[12vh]">
       <video
         ref={videoRef}
         src="/assets/walking%20video%203.mp4"
-        autoPlay
         loop
         muted
         playsInline
         webkit-playsinline="true"
-        preload="auto"
+        preload="none"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         onCanPlay={e => { (e.target as HTMLVideoElement).playbackRate = 0.5; }}
         suppressHydrationWarning

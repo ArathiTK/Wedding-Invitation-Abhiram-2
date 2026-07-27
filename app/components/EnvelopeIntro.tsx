@@ -49,6 +49,10 @@ export default function EnvelopeIntro({ onOpen, onTap, onVideoEnd }: Props) {
       try { v.playbackRate = 1.4; } catch {}
       v.play().catch(() => handleEnd()); // if play fails, proceed to open anyway
     }
+    // Fire the background-audio unlock in the SAME tap gesture/click handler as the
+    // video play() call above — iOS/Safari only allow audio.play() to succeed when it
+    // runs synchronously inside a real user gesture, so this must not be deferred
+    // (e.g. to onVideoEnd) or audio will silently fail to start on mobile.
     onTap?.();
   }
 
@@ -66,6 +70,10 @@ export default function EnvelopeIntro({ onOpen, onTap, onVideoEnd }: Props) {
         muted
         playsInline
         preload="auto"
+        // Highest fetch priority: this is the only asset the user sees before interacting,
+        // so it must win the network race against the (deferred) section videos below.
+        // @ts-expect-error -- fetchPriority is valid HTML but not yet in React's video typings
+        fetchPriority="high"
         onEnded={handleEnd}
         onError={handleEnd}
         onTimeUpdate={() => {

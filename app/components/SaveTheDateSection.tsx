@@ -10,7 +10,10 @@ export default function SaveTheDateSection() {
 
   useEffect(() => {
     const v = videoRef.current;
-    if (!v) return;
+    // Don't fetch this video until the envelope has been tapped — while the intro is
+    // idle/playing, the intro video should get full network bandwidth so the page
+    // opens instantly. This video starts buffering the moment the user taps.
+    if (!v || !opened) return;
 
     // load() only once — buffers the video without discarding progress on retry
     v.load();
@@ -50,18 +53,17 @@ export default function SaveTheDateSection() {
       document.removeEventListener("click", onGesture);
       document.removeEventListener("section2ready", onSection2Ready);
     };
-  }, []);
+  }, [opened]);
 
   return (
     <section className="relative overflow-hidden" style={{ minHeight: "100svh", width: "100%" }}>
       <video
         ref={videoRef}
         src="/assets/bg%20video%203%20-%20card.mp4"
-        autoPlay
         loop
         muted
         playsInline
-        preload="auto"
+        preload="none"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         suppressHydrationWarning
       />
