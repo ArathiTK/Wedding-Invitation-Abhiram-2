@@ -13,10 +13,13 @@ export default function RSVPForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const { register, handleSubmit, formState: { errors } } = useForm<RSVPData>();
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<RSVPData>();
+  const attendance = watch("attendance");
+  const isDeclining = attendance === "wedding-only-decline";
 
   async function onSubmit(data: RSVPData) {
     setSubmitting(true); setError("");
+    if (data.attendance === "wedding-only-decline") data.guestCount = 0;
     try { await submitRSVP(data); setSubmitted(true); }
     catch (e) { setError(e instanceof Error ? e.message : "Something went wrong."); }
     finally { setSubmitting(false); }
@@ -70,7 +73,15 @@ export default function RSVPForm() {
               <div>
                 <label className={labelClass}>Total Number of Guests *</label>
                 <input type="number" min={1} max={20} placeholder="Including yourself" className={numberInputClass}
-                  {...register("guestCount", { required: "Please enter the number of guests", min: { value: 1, message: "At least 1 guest" }, max: { value: 20, message: "Maximum 20 guests" }, valueAsNumber: true })} />
+                  {...register("guestCount", {
+                    valueAsNumber: true,
+                    validate: (value) => {
+                      if (isDeclining) return true;
+                      if (!value || value < 1) return "At least 1 guest";
+                      if (value > 20) return "Maximum 20 guests";
+                      return true;
+                    },
+                  })} />
                 {errors.guestCount && <p className="text-red-400 text-xs mt-1">{errors.guestCount.message}</p>}
               </div>
               <div>
