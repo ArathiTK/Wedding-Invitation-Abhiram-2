@@ -94,7 +94,7 @@ export default function EnvelopeIntro({ onOpen, onTap, onVideoEnd }: Props) {
           transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
           style={{
             fontFamily: "var(--font-cormorant)",
-            fontSize: "0.65rem",
+            fontSize: "0.85rem",
             letterSpacing: "0.28em",
             textTransform: "uppercase",
             color: "#1f1710",
