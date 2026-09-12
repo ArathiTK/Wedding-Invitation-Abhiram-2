@@ -21,6 +21,13 @@ const nextConfig: NextConfig = {
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
+      {
+        // OG image is versioned via ?v= query param, so let crawlers/CDNs cache it hard.
+        source: "/assets/og-image.jpg",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=3600, immutable" },
+        ],
+      },
     ];
   },
 };
