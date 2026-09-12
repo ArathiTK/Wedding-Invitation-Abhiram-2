@@ -12,6 +12,7 @@ const FADE_DURATION = 4000;
 export default function PageWrapper({ children }: { children: React.ReactNode }) {
   const [opened, setOpened] = useState(false);
   const [started, setStarted] = useState(false);
+  const [tapped, setTapped] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const fadingRef = useRef(false);
   const frameRef = useRef<number>(0);
@@ -36,6 +37,7 @@ export default function PageWrapper({ children }: { children: React.ReactNode })
   // runs inside a real user-gesture call stack, so this cannot be moved into a useEffect
   // or delayed until after the intro video finishes.
   function handleTap() {
+    setTapped(true);
     const audio = audioRef.current;
     if (!audio) return;
     audio.volume = 0;
@@ -95,7 +97,7 @@ export default function PageWrapper({ children }: { children: React.ReactNode })
   useEffect(() => () => cancelAnimationFrame(frameRef.current), []);
 
   return (
-    <IntroContext.Provider value={{ opened }}>
+    <IntroContext.Provider value={{ opened, tapped }}>
       <div className="relative">
         <audio ref={audioRef} src={TRACK} loop preload="auto" aria-hidden="true" />
         <AnimatePresence>

@@ -5,20 +5,20 @@ import CountdownTimer from "./ui/CountdownTimer";
 import { useIntro } from "@/app/context/IntroContext";
 
 export default function SaveTheDateSection() {
-  const { opened } = useIntro();
+  const { opened, tapped } = useIntro();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const v = videoRef.current;
-    // Don't fetch this video until the envelope has been tapped — while the intro is
-    // idle/playing, the intro video should get full network bandwidth so the page
-    // opens instantly. This video starts buffering the moment the user taps.
-    if (!v || !opened) return;
+    // Start buffering the moment the envelope is tapped (rather than waiting for the
+    // intro video to finish) so this video already has a frame ready by the time the
+    // envelope fades out — otherwise there's a blank/blink gap between the two.
+    if (!v || !tapped) return;
 
     // load() only once — buffers the video without discarding progress on retry
     v.load();
 
-    const tryPlay = () => v.play().catch(() => {});
+    const tryPlay = () => { if (opened) v.play().catch(() => {}); };
 
     // Wait for section 2 to be buffered before starting section 1 playback
     const onSection2Ready = () => tryPlay();
@@ -53,17 +53,20 @@ export default function SaveTheDateSection() {
       document.removeEventListener("click", onGesture);
       document.removeEventListener("section2ready", onSection2Ready);
     };
-  }, [opened]);
+  }, [tapped, opened]);
 
   return (
-    <section className="relative overflow-hidden" style={{ minHeight: "100svh", width: "100%" }}>
+    <section
+      className="relative overflow-hidden"
+      style={{ minHeight: "100svh", width: "100%", backgroundColor: "#181e13" }}
+    >
       <video
         ref={videoRef}
         src="/assets/bg%20video%203%20-%20card.mp4"
         loop
         muted
         playsInline
-        preload="none"
+        preload="auto"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         suppressHydrationWarning
       />
