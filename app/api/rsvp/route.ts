@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { after } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
@@ -16,22 +17,23 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: "Server misconfigured: missing sheet URL" }, { status: 500 });
     }
 
-    const sheetRes = await fetch(sheetUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name,
-        guests: guestCount,
-        attendance,
-        targetTab: "Abhiram",
-        timestamp: new Date().toISOString(),
-      }),
+    after(async () => {
+      try {
+        await fetch(sheetUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            guests: guestCount,
+            attendance,
+            targetTab: "Abhiram",
+            timestamp: new Date().toISOString(),
+          }),
+        });
+      } catch (err) {
+        console.error("RSVP sheet webhook failed:", err);
+      }
     });
-    const sheetData = await sheetRes.json().catch(() => ({}));
-
-    if (!sheetRes.ok || sheetData.success === false) {
-      return NextResponse.json({ message: sheetData.message || "Failed to record RSVP" }, { status: 502 });
-    }
 
     return NextResponse.json({ success: true, message: "RSVP received! Thank you." });
   } catch {
